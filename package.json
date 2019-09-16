@@ -1,0 +1,39 @@
+{
+  "name": "golden_ideas",
+  "version": "1.0.0",
+  "description": "A platform where students can post their project ideas and find teammates to work together.",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeanDiDi/golden-ideas.git"
+  },
+  "author": "Shidi Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DeanDiDi/golden-ideas/issues"
+  },
+  "homepage": "https://github.com/DeanDiDi/golden-ideas#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "nodemon": "^1.19.2"
+  }
+}
