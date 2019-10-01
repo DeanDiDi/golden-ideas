@@ -1,10 +1,12 @@
 import React from 'react';
-import ProjectList from './components/ProjectList';
+import NavBar from './common/components/NavBar'
+import ProjectList from './main/components/ProjectList';
 
 function App() {
   return (
     <div className="App">
-      <ProjectList></ProjectList>
+      <NavBar />
+      <ProjectList />
     </div>
   );
 }

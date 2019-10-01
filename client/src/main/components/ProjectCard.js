@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
@@ -33,16 +32,18 @@ const styles = {
 
 class ProjectCard extends Component {
   state = {
-    projectName: this.props.projectName,
+    name: this.props.name,
+    createdTime: this.props.createdTime,
   }
 
   render() {
     const { classes } = this.props;
+
     return (
       <Card className={classes.card}>
         <CardHeader
-          title={this.state.projectName}
-          subheader="September 14, 2016"
+          title={this.state.name}
+          subheader={this.state.createdTime}
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               R
@@ -92,13 +93,15 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.defaultProps = {
-  projectName: 'project_name'
-}
+  name: 'project_name',
+  createdTime: '1970-01-01',
+};
 
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   key: PropTypes.number,
-  projectName: PropTypes.string,
+  name: PropTypes.string,
+  createdTime: PropTypes.string,
 };
 
 export default withStyles(styles)(ProjectCard);
