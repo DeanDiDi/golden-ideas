@@ -49,7 +49,7 @@ class ToolBar extends Component {
         </Button>
         <NewProjectModal
           show={this.state.show}
-          handleClose={this.hideModal}
+          onClose={this.hideModal}
         />
       </div>
     );
