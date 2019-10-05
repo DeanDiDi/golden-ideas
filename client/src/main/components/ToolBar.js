@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import NewProjectModal from './NewProjectModal';
 
 const styles = theme => ({
   root: {
@@ -17,13 +18,20 @@ const styles = theme => ({
 class ToolBar extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      show: false,
+    }
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
-  handleClick(event) {
-    event.preventDefault();
-    alert('You clicked a breadcrumb.');
-  }
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -35,9 +43,14 @@ class ToolBar extends Component {
           color="primary"
           className={classes.button}
           startIcon={<AddCircleOutlineIcon />}
+          onClick={this.showModal}
         >
           Post Project
         </Button>
+        <NewProjectModal
+          show={this.state.show}
+          handleClose={this.hideModal}
+        />
       </div>
     );
   }
