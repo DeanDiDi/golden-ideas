@@ -15,8 +15,8 @@ import ShareIcon from '@material-ui/icons/Share';
 
 const styles = {
   card: {
-    width: '60%',
-    margin: '20px auto',
+    padding: '0 1em',
+    margin: '1em 0',
   },
   title: {
     fontSize: 14,
@@ -33,7 +33,7 @@ const styles = {
 class ProjectCard extends Component {
   state = {
     name: this.props.name,
-    createdTime: this.props.createdTime,
+    date: new Date(this.props.date),
   }
 
   render() {
@@ -43,10 +43,10 @@ class ProjectCard extends Component {
       <Card className={classes.card}>
         <CardHeader
           title={this.state.name}
-          subheader={this.state.createdTime}
+          subheader={this.state.date.toLocaleDateString()}
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              R
+              SZ
             </Avatar>
           }
           action={
@@ -93,15 +93,17 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.defaultProps = {
-  name: 'project_name',
-  createdTime: '1970-01-01',
+  name: 'default_project_name',
+  date: '01/01/1970',
+  views: 0,
 };
 
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  key: PropTypes.number,
+  key: PropTypes.string,
   name: PropTypes.string,
-  createdTime: PropTypes.string,
+  date: PropTypes.string,
+  views: PropTypes.number,
 };
 
 export default withStyles(styles)(ProjectCard);

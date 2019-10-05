@@ -1,12 +1,12 @@
 import React from 'react';
 import NavBar from './common/components/NavBar'
-import ProjectList from './main/components/ProjectList';
+import Main from './main/Main';
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <ProjectList />
+      <Main />
     </div>
   );
 }
