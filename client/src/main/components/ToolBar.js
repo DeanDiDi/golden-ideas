@@ -20,7 +20,7 @@ class ToolBar extends Component {
     super(props);
     this.state = {
       show: false,
-    }
+    };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }

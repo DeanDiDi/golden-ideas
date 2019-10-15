@@ -10,8 +10,10 @@ import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import ShareIcon from '@material-ui/icons/Share';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteProjectModal from './DeleteProjectModal';
 
 const styles = {
   card: {
@@ -31,53 +33,80 @@ const styles = {
 };
 
 class ProjectCard extends Component {
-  state = {
-    name: this.props.name,
-    date: new Date(this.props.date),
-    description: this.props.description,
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.id,
+      name: this.props.name,
+      date: new Date(this.props.date),
+      description: this.props.description,
+      showDeleteModal: false,
+    };
+    this.showDeleteModal = this.showDeleteModal.bind(this);
+    this.hideDeleteModal = this.hideDeleteModal.bind(this);
   }
+
+  showDeleteModal = () => {
+    this.setState({ showDeleteModal: true });
+  };
+
+  hideDeleteModal = () => {
+    this.setState({ showDeleteModal: false });
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
-        <CardHeader
-          title={this.state.name}
-          subheader={this.state.date.toLocaleDateString()}
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              SZ
-            </Avatar>
-          }
-          action={
-            <Rating
-              name="simple-controlled"
-              value={2.5}
-              precision={0.5}
-              // onChange={(event, newValue) => {
-              //   setValue(newValue);
-              // }}
-            />
-          }
+      <div>
+        <Card className={classes.card}>
+          <CardHeader
+            title={this.state.name}
+            subheader={this.state.date.toLocaleDateString()}
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                SZ
+              </Avatar>
+            }
+            action={
+              <Rating
+                name="simple-controlled"
+                value={2.5}
+                precision={0.5}
+                // onChange={(event, newValue) => {
+                //   setValue(newValue);
+                // }}
+              />
+            }
+          />
+
+          <CardContent>
+            <Typography variant="body2" component="p">
+              {this.state.description}
+            </Typography>
+          </CardContent>
+
+          <CardActions disableSpacing>
+            {/* <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton> */}
+            {/* <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton> */}
+            <IconButton aria-label="share" onClick={this.showDeleteModal}>
+              <DeleteIcon />
+            </IconButton>
+            <Button className={classes.moreButton} size="small">
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+        <DeleteProjectModal
+          projectId={this.state.id}
+          show={this.state.showDeleteModal}
+          onClose={this.hideDeleteModal}
         />
-
-        <CardContent>
-          <Typography variant="body2" component="p">
-            {this.state.description}
-          </Typography>
-        </CardContent>
-
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <Button className={classes.moreButton} size="small">Learn More</Button>
-        </CardActions>
-      </Card>
+      </div>
     );
   }
 }
@@ -91,7 +120,7 @@ ProjectCard.defaultProps = {
 
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  key: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string,
   date: PropTypes.string,
   views: PropTypes.number,

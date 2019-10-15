@@ -49,7 +49,12 @@ class NewProjectModal extends Component {
     const { show, onClose } = this.props;
 
     return (
-      <Dialog open={show} onClose={onClose} aria-labelledby="form-dialog-title" disableBackdropClick>
+      <Dialog
+        open={show}
+        onClose={onClose}
+        aria-labelledby="form-dialog-title"
+        disableBackdropClick
+      >
         <DialogTitle id="form-dialog-title">New Project</DialogTitle>
         <DialogContent>
           <TextField

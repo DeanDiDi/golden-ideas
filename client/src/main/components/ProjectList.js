@@ -24,7 +24,9 @@ class ProjectList extends Component {
   }
 
   render() {
-    const { projects } = this.state;
+    const { isLoading, projects } = this.state;
+    // TODO: Add Loading component
+    if (isLoading) return (<div />);
     return (
       <Fragment>
         {
@@ -32,6 +34,7 @@ class ProjectList extends Component {
             project => (
               <ProjetCard
                 key={project._id}
+                id={project._id}
                 name={project.name}
                 date={project.date}
                 description={project.description}
@@ -39,7 +42,6 @@ class ProjectList extends Component {
             )
           )
         }
-        <ProjetCard />
       </Fragment>
     );
   }
