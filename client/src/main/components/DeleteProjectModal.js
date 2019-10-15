@@ -24,8 +24,7 @@ class DeleteProjectModal extends Component {
   onSubmit (event) {
     event.preventDefault();
     const { projectId } = this.state;
-    const url = '/api/projects/' + projectId;
-    axios.delete(url)
+    axios.delete(`/api/projects/${projectId}`)
       .then((response) => {
         console.log('Project deleted:', response);
         this.props.onClose();

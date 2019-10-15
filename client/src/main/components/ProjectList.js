@@ -1,32 +1,20 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getProjects } from '../../actions/projectActions';
 import ProjetCard from './ProjectCard';
-import axios from 'axios';
 
 class ProjectList extends Component {
-  state = {
-    isLoading: true,
-    error: null,
-    projects: [],
-  }
-
   componentDidMount() {
-    axios.get('/api/projects')
-      .then((response) => {
-        this.setState({
-          projects: response.data,
-          isLoading: false,
-        });
-      })
-      .catch((error) => this.setState({
-        error,
-        isLoading: false,
-      }));
+    this.props.getProjects();
   }
 
   render() {
-    const { isLoading, projects } = this.state;
+    const { isLoading, projects } = this.props.project;
+
     // TODO: Add Loading component
     if (isLoading) return (<div />);
+
     return (
       <Fragment>
         {
@@ -47,4 +35,18 @@ class ProjectList extends Component {
   }
 }
 
-export default ProjectList;
+ProjectList.propTypes = {
+  getProjects: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  project: state.project,
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    getProjects,
+  },
+)(ProjectList);
