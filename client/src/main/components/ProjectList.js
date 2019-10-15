@@ -34,6 +34,7 @@ class ProjectList extends Component {
                 key={project._id}
                 name={project.name}
                 date={project.date}
+                description={project.description}
               />
             )
           )

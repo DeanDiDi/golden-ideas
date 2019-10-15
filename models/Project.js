@@ -22,6 +22,9 @@ const projectSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  description: {
+    type: String,
+  },
 });
 
 const Project = mongoose.model('Project', projectSchema);

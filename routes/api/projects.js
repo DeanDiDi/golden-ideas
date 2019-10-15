@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 // @desc    Create a new project
 // @access  Public
 router.post('/', (req, res) => {
-  const { name, owner } = req.body;
+  const { name, owner, description } = req.body;
 
   if (!name) {
     return res.status(404).json({ msg: 'Please provide project name.' });
@@ -31,6 +31,7 @@ router.post('/', (req, res) => {
       const newProject = new Project({
         name,
         owner,
+        description,
       });
 
       newProject.save().then((savedNewProject) => res.json(savedNewProject));

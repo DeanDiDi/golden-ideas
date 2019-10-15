@@ -34,6 +34,7 @@ class ProjectCard extends Component {
   state = {
     name: this.props.name,
     date: new Date(this.props.date),
+    description: this.props.description,
   }
 
   render() {
@@ -62,19 +63,8 @@ class ProjectCard extends Component {
         />
 
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Word of the Day
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {this.state.projectName}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
           <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
+            {this.state.description}
           </Typography>
         </CardContent>
 
@@ -93,9 +83,10 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.defaultProps = {
-  name: 'default_project_name',
-  date: '01/01/1970',
   views: 0,
+  date: '01/01/1970',
+  name: 'default_project_name',
+  description: 'Tell people something about your project',
 };
 
 ProjectCard.propTypes = {
@@ -104,6 +95,7 @@ ProjectCard.propTypes = {
   name: PropTypes.string,
   date: PropTypes.string,
   views: PropTypes.number,
+  description: PropTypes.string,
 };
 
 export default withStyles(styles)(ProjectCard);
