@@ -7,8 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
-
 
 const styles = theme => ({ });
 
@@ -24,15 +22,8 @@ class DeleteProjectModal extends Component {
   onSubmit (event) {
     event.preventDefault();
     const { projectId } = this.state;
-    const url = '/api/projects/' + projectId;
-    axios.delete(url)
-      .then((response) => {
-        console.log('Project deleted:', response);
-        this.props.onClose();
-      })
-      .catch((error) => {
-        console.log('error', error.response);
-      });
+    const { deleteProject } = this.props;
+    deleteProject(projectId);
   }
 
   render() {
@@ -75,6 +66,7 @@ DeleteProjectModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   projectId: PropTypes.string.isRequired,
+  deleteProject: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(DeleteProjectModal);

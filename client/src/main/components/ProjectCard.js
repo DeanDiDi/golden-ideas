@@ -55,7 +55,7 @@ class ProjectCard extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, deleteProject } = this.props;
 
     return (
       <div>
@@ -105,6 +105,7 @@ class ProjectCard extends Component {
           projectId={this.state.id}
           show={this.state.showDeleteModal}
           onClose={this.hideDeleteModal}
+          deleteProject={deleteProject}
         />
       </div>
     );
