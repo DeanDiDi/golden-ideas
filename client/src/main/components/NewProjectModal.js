@@ -7,8 +7,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
-
 
 const styles = theme => ({ });
 
@@ -19,39 +17,39 @@ class NewProjectModal extends Component {
       projectName: null,
       projectDesc: null,
     };
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  onSubmit (event) {
+  handleSubmit (event) {
     // TODO: Add input checking and error handling
     event.preventDefault();
+    const { addProject } = this.props;
     const { projectName, projectDesc } = this.state;
     if (projectName === null || projectDesc === null) {
       console.log('please enter all required field.');
       return;
     }
-    axios.post('/api/projects', {
-        // TODO: Remove hardcoded owner
-        owner: '5d8174455b5acf228785ae79',
-        name: projectName,
-        description: projectDesc,
-      })
-      .then((response) => {
-        console.log('New project added:', response);
-        this.props.onClose();
-      })
-      .catch((error) => {
-        console.log('error', error.response);
-      });
+    addProject({ projectName, projectDesc });
+    this.handleClose(event);
+  }
+
+  handleClose (event) {
+    event.preventDefault();
+    const { onClose } = this.props;
+    this.setState({
+      projectName: null,
+      projectDesc: null,
+    }, onClose);
   }
 
   render() {
-    const { show, onClose } = this.props;
+    const { show } = this.props;
 
     return (
       <Dialog
         open={show}
-        onClose={onClose}
+        onClose={this.handleClose}
         aria-labelledby="form-dialog-title"
         disableBackdropClick
       >
@@ -86,10 +84,10 @@ class NewProjectModal extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} variant="outlined" color="secondary">
+          <Button onClick={this.handleClose} variant="outlined" color="secondary">
             Cancel
           </Button>
-          <Button onClick={this.onSubmit} variant="outlined" color="primary">
+          <Button onClick={this.handleSubmit} variant="outlined" color="primary">
             Post
           </Button>
         </DialogActions>
@@ -106,6 +104,7 @@ NewProjectModal.propTypes = {
   classes: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  addProject: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(NewProjectModal);

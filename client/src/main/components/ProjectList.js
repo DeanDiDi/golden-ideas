@@ -1,14 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getProjects } from '../../actions/projectActions';
 import ProjetCard from './ProjectCard';
 
 class ProjectList extends Component {
-  componentDidMount() {
-    this.props.getProjects();
-  }
-
   render() {
     const { isLoading, projects } = this.props.project;
 
@@ -26,6 +20,7 @@ class ProjectList extends Component {
                 name={project.name}
                 date={project.date}
                 description={project.description}
+                deleteProject={this.props.deleteProject}
               />
             )
           )
@@ -36,17 +31,8 @@ class ProjectList extends Component {
 }
 
 ProjectList.propTypes = {
-  getProjects: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
+  deleteProject: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  project: state.project,
-});
-
-export default connect(
-  mapStateToProps,
-  {
-    getProjects,
-  },
-)(ProjectList);
+export default ProjectList;

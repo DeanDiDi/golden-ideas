@@ -34,7 +34,7 @@ class ToolBar extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, addProject } = this.props;
 
     return (
       <div className={classes.root}>
@@ -50,6 +50,7 @@ class ToolBar extends Component {
         <NewProjectModal
           show={this.state.show}
           onClose={this.hideModal}
+          addProject={addProject}
         />
       </div>
     );
@@ -60,6 +61,7 @@ ToolBar.defaultProps = { };
 
 ToolBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  addProject: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ToolBar);
