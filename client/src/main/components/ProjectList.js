@@ -1,33 +1,47 @@
 import React, { Component, Fragment } from 'react';
-import uuid from 'uuid';
 import ProjetCard from './ProjectCard';
+import axios from 'axios';
 
 class ProjectList extends Component {
   state = {
-    projects: [
-      { id: uuid(), name: 'test_project_1', createdTime: '09-01-2019' },
-      { id: uuid(), name: 'test_project_2', createdTime: '08-23-2019'  },
-      { id: uuid(), name: 'test_project_3', createdTime: '10-01-2019'  },
-      { id: uuid(), name: 'test_project_4', createdTime: '09-11-2019'  },
-    ]
+    isLoading: true,
+    error: null,
+    projects: [],
+  }
+
+  componentDidMount() {
+    axios.get('/api/projects')
+      .then((response) => {
+        this.setState({
+          projects: response.data,
+          isLoading: false,
+        });
+      })
+      .catch((error) => this.setState({
+        error,
+        isLoading: false,
+      }));
   }
 
   render() {
-    const { projects } = this.state;
+    const { isLoading, projects } = this.state;
+    // TODO: Add Loading component
+    if (isLoading) return (<div />);
     return (
       <Fragment>
         {
           projects.map(
             project => (
               <ProjetCard
-                key={project.id}
+                key={project._id}
+                id={project._id}
                 name={project.name}
-                createdTime={project.createdTime}
+                date={project.date}
+                description={project.description}
               />
             )
           )
         }
-        <ProjetCard />
       </Fragment>
     );
   }

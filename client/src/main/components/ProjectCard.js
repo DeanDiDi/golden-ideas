@@ -10,13 +10,15 @@ import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import ShareIcon from '@material-ui/icons/Share';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteProjectModal from './DeleteProjectModal';
 
 const styles = {
   card: {
-    width: '60%',
-    margin: '20px auto',
+    padding: '0 1em',
+    margin: '1em 0',
   },
   title: {
     fontSize: 14,
@@ -31,77 +33,98 @@ const styles = {
 };
 
 class ProjectCard extends Component {
-  state = {
-    name: this.props.name,
-    createdTime: this.props.createdTime,
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.id,
+      name: this.props.name,
+      date: new Date(this.props.date),
+      description: this.props.description,
+      showDeleteModal: false,
+    };
+    this.showDeleteModal = this.showDeleteModal.bind(this);
+    this.hideDeleteModal = this.hideDeleteModal.bind(this);
   }
+
+  showDeleteModal = () => {
+    this.setState({ showDeleteModal: true });
+  };
+
+  hideDeleteModal = () => {
+    this.setState({ showDeleteModal: false });
+  };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
-        <CardHeader
-          title={this.state.name}
-          subheader={this.state.createdTime}
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              R
-            </Avatar>
-          }
-          action={
-            <Rating
-              name="simple-controlled"
-              value={2.5}
-              precision={0.5}
-              // onChange={(event, newValue) => {
-              //   setValue(newValue);
-              // }}
-            />
-          }
+      <div>
+        <Card className={classes.card}>
+          <CardHeader
+            title={this.state.name}
+            subheader={this.state.date.toLocaleDateString()}
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                SZ
+              </Avatar>
+            }
+            action={
+              <Rating
+                name="simple-controlled"
+                value={2.5}
+                precision={0.5}
+                // onChange={(event, newValue) => {
+                //   setValue(newValue);
+                // }}
+              />
+            }
+          />
+
+          <CardContent>
+            <Typography variant="body2" component="p">
+              {this.state.description}
+            </Typography>
+          </CardContent>
+
+          <CardActions disableSpacing>
+            {/* <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton> */}
+            {/* <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton> */}
+            <IconButton aria-label="share" onClick={this.showDeleteModal}>
+              <DeleteIcon />
+            </IconButton>
+            <Button className={classes.moreButton} size="small">
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+        <DeleteProjectModal
+          projectId={this.state.id}
+          show={this.state.showDeleteModal}
+          onClose={this.hideDeleteModal}
         />
-
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Word of the Day
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {this.state.projectName}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
-          <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-          </Typography>
-        </CardContent>
-
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <Button className={classes.moreButton} size="small">Learn More</Button>
-        </CardActions>
-      </Card>
+      </div>
     );
   }
 }
 
 ProjectCard.defaultProps = {
-  name: 'project_name',
-  createdTime: '1970-01-01',
+  views: 0,
+  date: '01/01/1970',
+  name: 'default_project_name',
+  description: 'Tell people something about your project',
 };
 
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  key: PropTypes.number,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string,
-  createdTime: PropTypes.string,
+  date: PropTypes.string,
+  views: PropTypes.number,
+  description: PropTypes.string,
 };
 
 export default withStyles(styles)(ProjectCard);

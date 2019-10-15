@@ -79,7 +79,7 @@ class NavBar extends Component {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
-              Golden-Ideas
+              Golden Ideas
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
