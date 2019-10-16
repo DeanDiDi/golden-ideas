@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import projectReducer from './projectReducer';
+import projectListReducer from './projectListReducer';
 
 export default combineReducers({
-  project: projectReducer,
+  projectList: projectListReducer,
 });

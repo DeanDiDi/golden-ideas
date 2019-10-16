@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { getProjects, addProject, deleteProject } from '../actions/projectActions';
+import { getProjects, addProject, deleteProject } from '../actions/projectListActions';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
 
@@ -20,14 +20,14 @@ class Main extends Component {
   }
 
   render() {
-    const { classes, project, addProject, deleteProject } = this.props;
+    const { classes, projectList, addProject, deleteProject } = this.props;
     return (
       <div className={classes.container}>
         <ToolBar
           addProject={addProject}
         />
         <ProjectList
-          project={project}
+          projectList={projectList}
           deleteProject={deleteProject}
         />
       </div>
@@ -39,11 +39,11 @@ Main.propTypes = {
   getProjects: PropTypes.func.isRequired,
   addProject: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
+  projectList: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  project: state.project,
+  projectList: state.projectList,
 });
 
 export default connect(
