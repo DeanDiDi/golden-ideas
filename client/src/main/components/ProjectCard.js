@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import ShareIcon from '@material-ui/icons/Share';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EmailIcon from '@material-ui/icons/Email';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import DeleteProjectModal from './DeleteProjectModal';
 
-const styles = {
-  card: {
-    padding: '0 1em',
-    margin: '1em 0',
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
   },
-  title: {
-    fontSize: 14,
+  paper: {
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
   },
-  pos: {
-    marginBottom: 12,
-  },
-  moreButton: {
-    marginLeft: 'auto',
-    paddingRight: '8px',
-  }
-};
+  avatar: {},
+});
 
 class ProjectCard extends Component {
   constructor(props) {
@@ -56,51 +49,92 @@ class ProjectCard extends Component {
 
   render() {
     const { classes, deleteProject } = this.props;
+    const { name, date, description } = this.state;
 
     return (
-      <div>
-        <Card className={classes.card}>
-          <CardHeader
-            title={this.state.name}
-            subheader={this.state.date.toLocaleDateString()}
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                SZ
-              </Avatar>
-            }
-            action={
-              <Rating
-                name="simple-controlled"
-                value={2.5}
-                precision={0.5}
-                // onChange={(event, newValue) => {
-                //   setValue(newValue);
-                // }}
-              />
-            }
-          />
-
-          <CardContent>
-            <Typography variant="body2" component="p">
-              {this.state.description}
-            </Typography>
-          </CardContent>
-
-          <CardActions disableSpacing>
-            {/* <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton> */}
-            {/* <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton> */}
-            <IconButton aria-label="share" onClick={this.showDeleteModal}>
-              <DeleteIcon />
-            </IconButton>
-            <Button className={classes.moreButton} size="small">
-              Learn More
-            </Button>
-          </CardActions>
-        </Card>
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <Grid container direction="column" spacing={2}>
+            <Grid item xs container spacing={2}>
+              <Grid item xs={10} container spacing={2}>
+                <Grid item xs={12} sm container spacing={2}>
+                  <Grid item xs={2}>
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      SZ
+                    </Avatar>
+                  </Grid>
+                  <Grid item xs={10} container direction="column">
+                    <Grid item xs>
+                      <Typography variant="body1" gutterBottom>
+                        {name}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="body2" gutterBottom>
+                        General Category
+                      </Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="body2" gutterBottom>
+                        {date.toLocaleDateString()}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm>
+                  <Typography variant="body2" gutterBottom>
+                    Progress Bar
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid item xs={2} container direction="column" spacing={2}>
+                <Grid item xs>
+                  <Typography variant="body2" gutterBottom>
+                    Team capacity
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs container>
+              <Grid item xs={12} sm>
+                <Typography variant="body2" gutterBottom>
+                  {description}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm>
+                <Typography variant="body2" gutterBottom>
+                  Technology: These are required technologies!
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item xs container spacing={2}>
+              <Grid item xs={10}>
+                <IconButton aria-label="delete" onClick={this.showDeleteModal}>
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+                <IconButton aria-label="email">
+                  <EmailIcon />
+                </IconButton>
+                <IconButton aria-label="github">
+                  <GitHubIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={2}>
+                <Button className={classes.moreButton} size="small">
+                  More
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
         <DeleteProjectModal
           projectId={this.state.id}
           show={this.state.showDeleteModal}
