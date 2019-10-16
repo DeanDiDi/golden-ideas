@@ -4,7 +4,7 @@ import ProjetCard from './ProjectCard';
 
 class ProjectList extends Component {
   render() {
-    const { isLoading, projects } = this.props.project;
+    const { isLoading, projects } = this.props.projectList;
 
     // TODO: Add Loading component
     if (isLoading) return (<div />);
@@ -31,7 +31,7 @@ class ProjectList extends Component {
 }
 
 ProjectList.propTypes = {
-  project: PropTypes.object.isRequired,
+  projectList: PropTypes.object.isRequired,
   deleteProject: PropTypes.func.isRequired,
 };
 

@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-export const GET_PROJECTS = 'GET_PROJECTS';
-export const ADD_PROJECT = 'ADD_PROJECT';
-export const DELETE_PROJECT = 'DELETE_PROJECT';
-export const PROJECTS_LOADING = 'PROJECTS_LOADING';
+import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING } from './types';
 
 export const getProjects = () => dispatch => {
   dispatch(setProjectsLoading());
