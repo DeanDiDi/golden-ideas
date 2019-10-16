@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { getProjects, addProject, deleteProject } from '../actions/projectListActions';
+import { getProjects, addProject, deleteProject } from './actions/projectListActions';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
 
