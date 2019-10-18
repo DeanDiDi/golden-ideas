@@ -9,7 +9,7 @@ const router = express.Router();
 // @access  Public
 router.get('/', (req, res) => {
   Project.find()
-    .sort({ date: -1 })
+    .sort({ createdDate: -1 })
     .then((projects) => res.json(projects));
 });
 

@@ -31,7 +31,7 @@ class ProjectCard extends Component {
     this.state = {
       id: this.props.id,
       name: this.props.name,
-      date: new Date(this.props.date),
+      createdDate: new Date(this.props.createdDate),
       description: this.props.description,
       showDeleteModal: false,
     };
@@ -49,7 +49,7 @@ class ProjectCard extends Component {
 
   render() {
     const { classes, deleteProject } = this.props;
-    const { name, date, description } = this.state;
+    const { name, createdDate, description } = this.state;
 
     return (
       <div className={classes.root}>
@@ -76,7 +76,7 @@ class ProjectCard extends Component {
                     </Grid>
                     <Grid item xs>
                       <Typography variant="body2" gutterBottom>
-                        {date.toLocaleDateString()}
+                        {createdDate.toLocaleDateString()}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -148,7 +148,7 @@ class ProjectCard extends Component {
 
 ProjectCard.defaultProps = {
   views: 0,
-  date: '01/01/1970',
+  createdDate: '01/01/1970',
   name: 'default_project_name',
   description: 'Tell people something about your project',
 };
@@ -157,7 +157,7 @@ ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string,
-  date: PropTypes.string,
+  createdDate: PropTypes.string,
   views: PropTypes.number,
   description: PropTypes.string,
 };

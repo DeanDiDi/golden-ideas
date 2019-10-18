@@ -18,7 +18,7 @@ class ProjectList extends Component {
                 key={project._id}
                 id={project._id}
                 name={project.name}
-                date={project.date}
+                createdDate={project.createdDate}
                 description={project.description}
                 deleteProject={this.props.deleteProject}
               />
