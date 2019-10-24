@@ -17,6 +17,13 @@ export const addProject = project => dispatch => {
     // TODO: Remove hardcoded owner
     owner: '5d8174455b5acf228785ae79',
     name: project.projectName,
+    size: project.teamSize,
+    startDate: project.startDate,
+    endDate: project.endDate,
+    category: project.projectCategory,
+    technology: project.projectTechnology,
+    email: project.projectEmail,
+    github: project.projectGithub,
     description: project.projectDesc,
   })
   .then((response) =>

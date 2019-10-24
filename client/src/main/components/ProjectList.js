@@ -17,8 +17,14 @@ class ProjectList extends Component {
               <ProjetCard
                 key={project._id}
                 id={project._id}
-                name={project.name}
-                createdDate={project.createdDate}
+                projectName={project.name}
+                teamSize={project.size}
+                startDate={project.startDate}
+                endDate={project.endDate}
+                projectCategory={project.category}
+                projectTechnology={project.technology}
+                projectEmail={project.email}
+                projectGithub={project.github}
                 description={project.description}
                 deleteProject={this.props.deleteProject}
               />

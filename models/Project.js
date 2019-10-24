@@ -8,6 +8,9 @@ const projectSchema = new Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
+    unique: true,
+    maxlength: 50,
   },
   createdDate: {
     type: Date,
@@ -15,11 +18,11 @@ const projectSchema = new Schema({
   },
   startDate: {
     type: Date,
-    default: Date.now,
     required: true,
   },
   endDate: {
     type: Date,
+    required: true,
   },
   likes: {
     type: Number,
@@ -29,17 +32,32 @@ const projectSchema = new Schema({
     type: Number,
     default: 0,
   },
-  category: {
+  email: {
     type: String,
+    validate: {
+      validator(v) {
+        // eslint-disable-next-line no-useless-escape
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return emailRegex.test(v);
+      },
+      message: (props) => `${props.value} is not a valid email!`,
+    },
+  },
+  github: {
+    type: String,
+  },
+  category: {
+    type: [String],
     required: true,
   },
-  members: {
-    type: Map,
-    of: Number,
-    default: {
-      current: 1,
-      maximum: 1,
-    },
+  technology: {
+    type: [String],
+    required: true,
+  },
+  size: {
+    type: Number,
+    default: 1,
+    min: 1,
     required: true,
   },
   owner: {
@@ -49,6 +67,8 @@ const projectSchema = new Schema({
   },
   description: {
     type: String,
+    trim: true,
+    maxlength: 300,
   },
 });
 

@@ -32,14 +32,14 @@ class NewProjectModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      projectName: null,
       teamSize: null,
       startDate: new Date(),
       endDate: new Date(),
-      projectName: null,
+      projectCategory: [],
       projectDesc: null,
       projectEmail: null,
       projectGithub: null,
-      projectCategory: [],
       projectTechnology: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,12 +52,34 @@ class NewProjectModal extends Component {
     // TODO: Add input checking and error handling
     event.preventDefault();
     const { addProject } = this.props;
-    const { projectName, projectDesc } = this.state;
-    if (projectName === null || projectDesc === null) {
-      console.log('please enter all required field.');
+    const { projectName, teamSize, startDate, endDate, projectCategory,
+      projectTechnology, projectEmail, projectGithub, projectDesc } = this.state;
+    console.log(this.state);
+    if (projectName === null) {console.log('Please enter project name.'); return;}
+    if (teamSize === null) {console.log('Please enter team size.'); return;}
+    if (startDate > endDate) {console.log('End date must larger than start date.'); return;}
+    if (Array.isArray(projectCategory)) {
+      if (projectCategory.length === 0) {
+        console.log('Please select at least one item for project category.');
+        return;
+      }
+    } else {
+      console.log('Unrecognizable project category type.');
       return;
     }
-    addProject({ projectName, projectDesc });
+    if (Array.isArray(projectTechnology)) {
+      if (projectTechnology.length === 0) {
+        console.log('Please select at least one item for project technology.');
+        return;
+      }
+    } else {
+      console.log('Unrecognizable project technology type.');
+      return;
+    }
+    if (projectEmail === null) {console.log('Please enter project email.'); return;}
+    if (projectDesc === null) {console.log('please enter project desc.'); return;}
+    addProject({ projectName, teamSize, startDate, endDate, projectCategory,
+      projectTechnology, projectEmail, projectGithub, projectDesc });
     this.handleClose(event);
   }
 

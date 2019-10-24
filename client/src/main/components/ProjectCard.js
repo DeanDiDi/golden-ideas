@@ -30,8 +30,14 @@ class ProjectCard extends Component {
     super(props);
     this.state = {
       id: this.props.id,
-      name: this.props.name,
-      createdDate: new Date(this.props.createdDate),
+      projectName: this.props.projectName,
+      teamSize: this.props.teamSize,
+      startDate: new Date(this.props.startDate),
+      endDate: new Date(this.props.endDate),
+      projectCategory: this.props.projectCategory,
+      projectTechnology: this.props.projectTechnology,
+      projectEmail: this.props.projectEmail,
+      projectGithub: this.props.projectGithub,
       description: this.props.description,
       showDeleteModal: false,
     };
@@ -49,7 +55,12 @@ class ProjectCard extends Component {
 
   render() {
     const { classes, deleteProject } = this.props;
-    const { name, createdDate, description } = this.state;
+    const { projectName, teamSize, startDate, endDate, projectCategory,
+      projectTechnology, projectEmail, projectGithub, description } = this.state;
+
+    if (projectName === 'test') {
+      console.log(this.state);
+    }
 
     return (
       <div className={classes.root}>
@@ -66,17 +77,17 @@ class ProjectCard extends Component {
                   <Grid item xs={10} container direction="column">
                     <Grid item xs>
                       <Typography variant="body1" gutterBottom>
-                        {name}
+                        {projectName}
                       </Typography>
                     </Grid>
                     <Grid item xs>
                       <Typography variant="body2" gutterBottom>
-                        General Category
+                        {projectCategory}
                       </Typography>
                     </Grid>
                     <Grid item xs>
                       <Typography variant="body2" gutterBottom>
-                        {createdDate.toLocaleDateString()}
+                        {`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -90,7 +101,7 @@ class ProjectCard extends Component {
               <Grid item xs={2} container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography variant="body2" gutterBottom>
-                    Team capacity
+                    {teamSize}
                   </Typography>
                 </Grid>
                 <Grid item xs>
@@ -108,7 +119,7 @@ class ProjectCard extends Component {
               </Grid>
               <Grid item xs={12} sm>
                 <Typography variant="body2" gutterBottom>
-                  Technology: These are required technologies!
+                  {projectTechnology}
                 </Typography>
               </Grid>
             </Grid>
@@ -120,12 +131,20 @@ class ProjectCard extends Component {
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
-                <IconButton aria-label="email">
-                  <EmailIcon />
-                </IconButton>
-                <IconButton aria-label="github">
-                  <GitHubIcon />
-                </IconButton>
+                {
+                  projectEmail ? (
+                    <IconButton aria-label="email" onClick={() => alert(`${projectEmail}`)}>
+                      <EmailIcon />
+                    </IconButton>
+                  ) : null
+                }
+                {
+                  projectGithub ? (
+                    <IconButton aria-label="github" onClick={() => alert(`${projectGithub}`)}>
+                      <GitHubIcon />
+                    </IconButton>
+                  ) : null
+                }
               </Grid>
               <Grid item xs={2}>
                 <Button className={classes.moreButton} size="small">
@@ -148,16 +167,28 @@ class ProjectCard extends Component {
 
 ProjectCard.defaultProps = {
   views: 0,
-  createdDate: '01/01/1970',
-  name: 'default_project_name',
+  projectName: 'default_project_name',
+  teamSize: 1,
+  startDate: '01/01/1970',
+  endDate: '01/01/1970',
+  projectCategory: [],
+  projectTechnology: [],
+  projectEmail: null,
+  projectGithub: null,
   description: 'Tell people something about your project',
 };
 
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  createdDate: PropTypes.string,
+  projectName: PropTypes.string,
+  teamSize: PropTypes.number,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  projectCategory: PropTypes.arrayOf(PropTypes.string),
+  projectTechnology: PropTypes.arrayOf(PropTypes.string),
+  projectEmail: PropTypes.string,
+  projectGithub: PropTypes.string,
   views: PropTypes.number,
   description: PropTypes.string,
 };
