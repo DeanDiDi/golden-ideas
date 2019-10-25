@@ -3,19 +3,43 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Slider from '@material-ui/core/Slider';
+import { teamSizeOptions, categoryOptions, technologyOptions } from '../static/options';
+import SearchBox from './SearchBox';
 
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: '1em',
+    margin: '1em 0em',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
   },
+  expansionPanelTight: {
+    padding: 0,
+  }
 });
+
+const ExpansionPanelSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiExpansionPanelSummary);
 
 class ProjectFilter extends Component {
   constructor(props) {
@@ -46,10 +70,14 @@ class ProjectFilter extends Component {
             <Typography className={classes.heading}>Team Size</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit amet egestas eros,
-              vitae egestas augue. Duis vel est augue.
-            </Typography>
+            <Slider
+              valueLabelDisplay="auto"
+              marks={teamSizeOptions.options}
+              min={teamSizeOptions.range.min}
+              max={teamSizeOptions.range.max}
+              step={teamSizeOptions.range.step}
+              defaultValue={[teamSizeOptions.default.min, teamSizeOptions.default.max]}
+            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'category'} onChange={handleChange('category')}>
@@ -60,11 +88,10 @@ class ProjectFilter extends Component {
           >
             <Typography className={classes.heading}>Category</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-              maximus est, id dignissim quam.
-            </Typography>
+          <ExpansionPanelDetails className={classes.expansionPanelTight}>
+            <SearchBox
+              options={categoryOptions}
+            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'technology'} onChange={handleChange('technology')}>
@@ -75,11 +102,10 @@ class ProjectFilter extends Component {
           >
             <Typography className={classes.heading}>Technology</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-              diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
+          <ExpansionPanelDetails className={classes.expansionPanelTight}>
+            <SearchBox
+              options={technologyOptions}
+            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

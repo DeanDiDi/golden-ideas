@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import NewProjectModal from './NewProjectModal';
 import ProjectFilter from './ProjectFilter'
 
 const styles = theme => ({
   root: {
-    // padding: theme.spacing(1, 2),
     marginTop: '1em',
   },
   button: {
@@ -48,8 +48,15 @@ class ToolBar extends Component {
         >
           Post Project
         </Button>
-        <ProjectFilter
-        />
+        <ProjectFilter />
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<FilterListOutlinedIcon />}
+          className={classes.button}
+        >
+          {`Filter (${123})`}
+        </Button>
         <NewProjectModal
           show={this.state.show}
           onClose={this.hideModal}
