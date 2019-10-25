@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getProjects, addProject, deleteProject } from './actions/projectListActions';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   container: {
@@ -22,15 +23,19 @@ class Main extends Component {
   render() {
     const { classes, projectList, addProject, deleteProject } = this.props;
     return (
-      <div className={classes.container}>
-        <ToolBar
-          addProject={addProject}
-        />
+      <Grid className={classes.container} container spacing={2}>
+        <Grid item xs={12} sm={3}>
+          <ToolBar
+            addProject={addProject}
+          />
+        </Grid>
+        <Grid item xs={12} sm={9}>
         <ProjectList
           projectList={projectList}
           deleteProject={deleteProject}
         />
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }

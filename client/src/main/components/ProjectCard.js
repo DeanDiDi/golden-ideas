@@ -58,10 +58,6 @@ class ProjectCard extends Component {
     const { projectName, teamSize, startDate, endDate, projectCategory,
       projectTechnology, projectEmail, projectGithub, description } = this.state;
 
-    if (projectName === 'test') {
-      console.log(this.state);
-    }
-
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>

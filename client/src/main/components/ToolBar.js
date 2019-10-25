@@ -4,15 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import NewProjectModal from './NewProjectModal';
+import ProjectFilter from './ProjectFilter'
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing(1, 2),
+    // padding: theme.spacing(1, 2),
     marginTop: '1em',
   },
   button: {
-    margin: theme.spacing(1),
-  }
+    width: '100%',
+  },
 });
 
 class ToolBar extends Component {
@@ -41,12 +42,14 @@ class ToolBar extends Component {
         <Button
           variant="contained"
           color="primary"
-          className={classes.button}
           startIcon={<AddCircleOutlineIcon />}
+          className={classes.button}
           onClick={this.showModal}
         >
           Post Project
         </Button>
+        <ProjectFilter
+        />
         <NewProjectModal
           show={this.state.show}
           onClose={this.hideModal}

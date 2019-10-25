@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
+    "db": "mongod --config /usr/local/etc/mongod.conf",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run db\" \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
