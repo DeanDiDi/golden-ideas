@@ -17,14 +17,38 @@ const tableIcons = {
 };
 
 class SearchBox extends Component {
-  state = {
-    tableData: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableData: [],
+      selected: [],
+    };
+    this.onSelectionChange = this.onSelectionChange.bind(this);
+  }
 
   componentDidMount() {
     const { options } = this.props;
     const tableData = options.map(option => ({ name: option }));
     this.setState({ tableData });
+  }
+
+  /**
+   * This function is necessary because calling setState inside
+   * onSelectionChange will cause material table to be re-rendered,
+   * thus causing all previously check checkbox unchecked.
+   *
+   * We force the component only to refresh when tableData changes.
+   */
+  shouldComponentUpdate(_, nextState) {
+    if (this.state.tableData === nextState.tableData) {
+      return false;
+    }
+    return true;
+  }
+
+  onSelectionChange(rows) {
+    const selected = rows.map((row) => row.name);
+    this.setState({ selected });
   }
 
   render() {
@@ -46,6 +70,7 @@ class SearchBox extends Component {
             maxBodyHeight: "300px",
             header: false
           }}
+          onSelectionChange={this.onSelectionChange}
         />
       </div>
     );
