@@ -47,7 +47,9 @@ class SearchBox extends Component {
   }
 
   onSelectionChange(rows) {
+    const { filterType, updateFilter } = this.props;
     const selected = rows.map((row) => row.name);
+    updateFilter(filterType, selected);
     this.setState({ selected });
   }
 
@@ -79,11 +81,14 @@ class SearchBox extends Component {
 
 SearchBox.defaultProps = {
   options: ['default option'],
+  filterType: 'default filter type',
 };
 
 SearchBox.propTypes = {
   classes: PropTypes.object.isRequired,
   options: PropTypes.arrayOf(PropTypes.string),
+  filterType: PropTypes.string.isRequired,
+  updateFilter: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SearchBox);

@@ -35,7 +35,7 @@ class ToolBar extends Component {
   };
 
   render() {
-    const { classes, addProject } = this.props;
+    const { classes, addProject, projectFilter, updateFilter } = this.props;
 
     return (
       <div className={classes.root}>
@@ -48,12 +48,15 @@ class ToolBar extends Component {
         >
           Post Project
         </Button>
-        <ProjectFilter />
+        <ProjectFilter
+          updateFilter={updateFilter}
+        />
         <Button
           variant="contained"
           color="primary"
           startIcon={<FilterListOutlinedIcon />}
           className={classes.button}
+          onClick={() => console.log('projectFilter:', projectFilter)}
         >
           {`Filter (${123})`}
         </Button>
@@ -72,6 +75,8 @@ ToolBar.defaultProps = { };
 ToolBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addProject: PropTypes.func.isRequired,
+  projectFilter: PropTypes.object.isRequired,
+  updateFilter: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ToolBar);

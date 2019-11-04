@@ -55,7 +55,7 @@ class ProjectFilter extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, updateFilter } = this.props;
     const { expanded } = this.state;
     const handleChange = this.handleChange;
 
@@ -91,6 +91,8 @@ class ProjectFilter extends Component {
           <ExpansionPanelDetails className={classes.expansionPanelTight}>
             <SearchBox
               options={categoryOptions}
+              filterType={'categoryFilter'}
+              updateFilter={updateFilter}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -105,6 +107,8 @@ class ProjectFilter extends Component {
           <ExpansionPanelDetails className={classes.expansionPanelTight}>
             <SearchBox
               options={technologyOptions}
+              filterType={'technologyFilter'}
+              updateFilter={updateFilter}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -117,6 +121,7 @@ ProjectFilter.defaultProps = { };
 
 ProjectFilter.propTypes = {
   classes: PropTypes.object.isRequired,
+  updateFilter: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ProjectFilter);
