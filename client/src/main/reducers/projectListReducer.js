@@ -1,7 +1,8 @@
-import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING } from '../actions/types';
+import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING, UPDATE_PROJECTS } from '../actions/types';
 
 const initialState = {
   projects: [],
+  filteredProjects: [],
   loading: false,
 };
 
@@ -11,7 +12,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         projects: action.payload,
-        loading: false,
       };
     case ADD_PROJECT:
       return {
@@ -28,6 +28,12 @@ export default function(state = initialState, action) {
         ...state,
         loading: true,
       };
+    case UPDATE_PROJECTS:
+      return {
+        ...state,
+        filteredProjects: action.payload,
+        loading:false,
+      }
     default:
       return state;
   }

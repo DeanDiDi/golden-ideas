@@ -1,7 +1,7 @@
 export const teamSizeOptions = {
   default: {
-    min: 2,
-    max: 4,
+    min: 1,
+    max: 5,
   },
   range: {
     min: 1,

@@ -48,11 +48,18 @@ class ProjectFilter extends Component {
       expanded: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSliderChange = this.onSliderChange.bind(this);
   }
 
   handleChange = panel => (event, isExpanded) => {
     this.setState({ expanded: isExpanded ? panel : false });
   };
+
+  onSliderChange = (event, value) => {
+    const { updateFilter } = this.props;
+    const [ minValue, maxValue ] = value;
+    updateFilter('teamSizeFilter', { minValue, maxValue });
+  }
 
   render() {
     const { classes, updateFilter } = this.props;
@@ -77,6 +84,7 @@ class ProjectFilter extends Component {
               max={teamSizeOptions.range.max}
               step={teamSizeOptions.range.step}
               defaultValue={[teamSizeOptions.default.min, teamSizeOptions.default.max]}
+              onChangeCommitted={this.onSliderChange}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>

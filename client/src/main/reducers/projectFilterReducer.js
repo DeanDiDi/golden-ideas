@@ -1,6 +1,7 @@
 import { UPDATE_FILTER } from '../actions/types';
 
 const initialState = {
+  teamSizeFilter: {},
   categoryFilter: [],
   technologyFilter: [],
 };

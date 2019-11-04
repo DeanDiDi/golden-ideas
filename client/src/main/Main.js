@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { getProjects, addProject, deleteProject } from './actions/projectListActions';
-import { updateFilter } from './actions/projectFilterActions';
+import { updateFilter, applyFilter } from './actions/projectFilterActions';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
 import Grid from '@material-ui/core/Grid';
@@ -22,9 +22,10 @@ class Main extends Component {
   }
 
   render() {
-    const { classes,
+    const {
+      classes,
       projectList, addProject, deleteProject,
-      projectFilter, updateFilter,
+      projectFilter, updateFilter, applyFilter,
     } = this.props;
     return (
       <Grid className={classes.container} container spacing={2}>
@@ -33,6 +34,7 @@ class Main extends Component {
             addProject={addProject}
             projectFilter={projectFilter}
             updateFilter={updateFilter}
+            applyFilter={applyFilter}
           />
         </Grid>
         <Grid item xs={12} sm={9}>
@@ -52,6 +54,7 @@ Main.propTypes = {
   deleteProject: PropTypes.func.isRequired,
   projectList: PropTypes.object.isRequired,
   updateFilter: PropTypes.func.isRequired,
+  applyFilter: PropTypes.func.isRequired,
   projectFilter: PropTypes.object.isRequired,
 };
 
@@ -67,5 +70,6 @@ export default connect(
     addProject,
     deleteProject,
     updateFilter,
+    applyFilter,
   },
 )(withStyles(styles)(Main));

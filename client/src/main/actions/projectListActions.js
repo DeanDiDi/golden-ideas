@@ -1,15 +1,19 @@
 import axios from 'axios';
-import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING } from './types';
+import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING, UPDATE_PROJECTS } from './types';
 
 export const getProjects = () => dispatch => {
   dispatch(setProjectsLoading());
   axios.get('/api/projects')
-    .then((response) =>
+    .then((response) => {
       dispatch({
         type: GET_PROJECTS,
         payload: response.data,
-      })
-    );
+      });
+      dispatch({
+        type: UPDATE_PROJECTS,
+        payload: response.data,
+      });
+    });
 };
 
 export const addProject = project => dispatch => {
