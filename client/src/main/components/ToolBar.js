@@ -35,11 +35,7 @@ class ToolBar extends Component {
   };
 
   render() {
-    const {
-      classes,
-      addProject,
-      updateFilter, applyFilter
-    } = this.props;
+    const { classes, addProject, updateFilter, applyFilter } = this.props;
 
     return (
       <div className={classes.root}>
@@ -79,7 +75,6 @@ ToolBar.defaultProps = { };
 ToolBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addProject: PropTypes.func.isRequired,
-  projectFilter: PropTypes.object.isRequired,
   updateFilter: PropTypes.func.isRequired,
   applyFilter: PropTypes.func.isRequired,
 };

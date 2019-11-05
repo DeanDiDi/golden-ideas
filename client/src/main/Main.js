@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { getProjects, addProject, deleteProject } from './actions/projectListActions';
-import { updateFilter, applyFilter } from './actions/projectFilterActions';
+import { getProjects, addProject, deleteProject, updateFilter, applyFilter } from './actions/projectListActions';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
 import Grid from '@material-ui/core/Grid';
@@ -22,17 +21,12 @@ class Main extends Component {
   }
 
   render() {
-    const {
-      classes,
-      projectList, addProject, deleteProject,
-      projectFilter, updateFilter, applyFilter,
-    } = this.props;
+    const { classes, projectList, addProject, deleteProject, updateFilter, applyFilter } = this.props;
     return (
       <Grid className={classes.container} container spacing={2}>
         <Grid item xs={12} sm={3}>
           <ToolBar
             addProject={addProject}
-            projectFilter={projectFilter}
             updateFilter={updateFilter}
             applyFilter={applyFilter}
           />
@@ -49,18 +43,16 @@ class Main extends Component {
 }
 
 Main.propTypes = {
+  projectList: PropTypes.object.isRequired,
   getProjects: PropTypes.func.isRequired,
   addProject: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
-  projectList: PropTypes.object.isRequired,
   updateFilter: PropTypes.func.isRequired,
   applyFilter: PropTypes.func.isRequired,
-  projectFilter: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   projectList: state.projectList,
-  projectFilter: state.projectFilter,
 });
 
 export default connect(
