@@ -96,3 +96,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 node_modules
+
+# Database snapshot files
+scripts/database/snapshot.json
