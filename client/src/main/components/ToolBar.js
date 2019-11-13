@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+// import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import NewProjectModal from './NewProjectModal';
+import ProjectFilter from './ProjectFilter'
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing(1, 2),
     marginTop: '1em',
   },
   button: {
-    margin: theme.spacing(1),
-  }
+    width: '100%',
+  },
 });
 
 class ToolBar extends Component {
@@ -34,19 +35,31 @@ class ToolBar extends Component {
   };
 
   render() {
-    const { classes, addProject } = this.props;
+    const { classes, addProject, updateFilter } = this.props;
 
     return (
       <div className={classes.root}>
         <Button
           variant="contained"
           color="primary"
-          className={classes.button}
           startIcon={<AddCircleOutlineIcon />}
+          className={classes.button}
           onClick={this.showModal}
         >
           Post Project
         </Button>
+        <ProjectFilter
+          updateFilter={updateFilter}
+        />
+        {/* <Button
+          variant="contained"
+          color="primary"
+          startIcon={<FilterListOutlinedIcon />}
+          className={classes.button}
+          // onClick={applyFilter}
+        >
+          {`Filter`}
+        </Button> */}
         <NewProjectModal
           show={this.state.show}
           onClose={this.hideModal}
@@ -62,6 +75,8 @@ ToolBar.defaultProps = { };
 ToolBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addProject: PropTypes.func.isRequired,
+  updateFilter: PropTypes.func.isRequired,
+  // applyFilter: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ToolBar);

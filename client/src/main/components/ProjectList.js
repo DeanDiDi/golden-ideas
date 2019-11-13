@@ -4,7 +4,7 @@ import ProjetCard from './ProjectCard';
 
 class ProjectList extends Component {
   render() {
-    const { isLoading, projects } = this.props.projectList;
+    const { isLoading, filteredProjects } = this.props.projectList;
 
     // TODO: Add Loading component
     if (isLoading) return (<div />);
@@ -12,13 +12,19 @@ class ProjectList extends Component {
     return (
       <Fragment>
         {
-          projects.map(
+          filteredProjects.map(
             project => (
               <ProjetCard
                 key={project._id}
                 id={project._id}
-                name={project.name}
-                date={project.date}
+                projectName={project.name}
+                teamSize={project.size}
+                startDate={project.startDate}
+                endDate={project.endDate}
+                projectCategory={project.category}
+                projectTechnology={project.technology}
+                projectEmail={project.email}
+                projectGithub={project.github}
                 description={project.description}
                 deleteProject={this.props.deleteProject}
               />

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { getProjects, addProject, deleteProject } from './actions/projectListActions';
+import { getProjects, addProject, deleteProject, updateFilter } from './actions/projectListActions';
+import { getFilteredProjects } from './selectors/projectListSelector';
 import ToolBar from './components/ToolBar';
 import ProjectList from './components/ProjectList';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   container: {
@@ -20,30 +22,39 @@ class Main extends Component {
   }
 
   render() {
-    const { classes, projectList, addProject, deleteProject } = this.props;
+    const { classes, projectList, addProject, deleteProject, updateFilter } = this.props;
     return (
-      <div className={classes.container}>
-        <ToolBar
-          addProject={addProject}
-        />
+      <Grid className={classes.container} container spacing={2}>
+        <Grid item xs={12} sm={3}>
+          <ToolBar
+            addProject={addProject}
+            updateFilter={updateFilter}
+          />
+        </Grid>
+        <Grid item xs={12} sm={9}>
         <ProjectList
           projectList={projectList}
           deleteProject={deleteProject}
         />
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }
 
 Main.propTypes = {
+  projectList: PropTypes.object.isRequired,
   getProjects: PropTypes.func.isRequired,
   addProject: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
-  projectList: PropTypes.object.isRequired,
+  updateFilter: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  projectList: state.projectList,
+  projectList: {
+    ...state.projectList,
+    filteredProjects: getFilteredProjects(state),
+  }
 });
 
 export default connect(
@@ -52,5 +63,6 @@ export default connect(
     getProjects,
     addProject,
     deleteProject,
+    updateFilter,
   },
 )(withStyles(styles)(Main));
