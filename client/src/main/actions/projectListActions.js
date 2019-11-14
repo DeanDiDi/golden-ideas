@@ -1,5 +1,7 @@
 import axios from 'axios';
+import crypto from 'crypto';
 import { GET_PROJECTS, ADD_PROJECT, DELETE_PROJECT, PROJECTS_LOADING, UPDATE_FILTER } from './types';
+import { sendEmail } from '../../common/emailer';
 
 export const getProjects = () => dispatch => {
   dispatch(setProjectsLoading());
@@ -13,26 +15,38 @@ export const getProjects = () => dispatch => {
     });
 };
 
-export const addProject = project => dispatch => {
-  axios.post('/api/projects', {
+export const addProject = data => dispatch => {
+  let project = {
     // TODO: Remove hardcoded owner
     owner: '5d8174455b5acf228785ae79',
-    name: project.projectName,
-    size: project.teamSize,
-    startDate: project.startDate,
-    endDate: project.endDate,
-    category: project.projectCategory,
-    technology: project.projectTechnology,
-    email: project.projectEmail,
-    github: project.projectGithub,
-    description: project.projectDesc,
-  })
-  .then((response) =>
+    name: data.projectName,
+    size: data.teamSize,
+    startDate: data.startDate,
+    endDate: data.endDate,
+    category: data.projectCategory,
+    technology: data.projectTechnology,
+    email: data.projectEmail,
+    github: data.projectGithub,
+    description: data.projectDesc,
+  };
+  const secret = crypto.createHash('sha256').update(JSON.stringify(project)).digest('hex');
+  project.secret = secret;
+  axios.post('/api/projects', project)
+  .then((response) => {
+    const newProject = response.data;
     dispatch({
       type: ADD_PROJECT,
-      payload: response.data,
-    })
-  )
+      payload: newProject,
+    });
+    const text = `Your project '${newProject.name}':\n\t
+      team size: ${newProject.size}\n\t
+      project email: ${newProject.email}\n\t
+      link: http://localhost:3000/?secret=${newProject.secret}`;
+    sendEmail({
+      to: response.data.email,
+      text,
+    });
+  })
   .catch((error) => {
     console.log('error', error.response);
   });
