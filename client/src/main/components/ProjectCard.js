@@ -54,7 +54,7 @@ class ProjectCard extends Component {
   };
 
   render() {
-    const { classes, deleteProject } = this.props;
+    const { classes, deleteProject, privileged } = this.props;
     const { projectName, teamSize, startDate, endDate, projectCategory,
       projectTechnology, projectEmail, projectGithub, description } = this.state;
 
@@ -121,9 +121,13 @@ class ProjectCard extends Component {
             </Grid>
             <Grid item xs container spacing={2}>
               <Grid item xs={10}>
-                <IconButton aria-label="delete" onClick={this.showDeleteModal}>
-                  <DeleteIcon />
-                </IconButton>
+                {
+                  privileged ? (
+                    <IconButton aria-label="delete" onClick={this.showDeleteModal}>
+                      <DeleteIcon />
+                    </IconButton>
+                  ) : null
+                }
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>

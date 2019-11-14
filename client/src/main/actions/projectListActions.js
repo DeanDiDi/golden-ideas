@@ -41,7 +41,7 @@ export const addProject = data => dispatch => {
     const text = `Your project '${newProject.name}':\n\t
       team size: ${newProject.size}\n\t
       project email: ${newProject.email}\n\t
-      link: http://localhost:3000/?secret=${newProject.secret}`;
+      link: http://localhost:3000/${newProject.secret}`;
     sendEmail({
       to: response.data.email,
       text,

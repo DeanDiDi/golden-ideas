@@ -23,6 +23,7 @@ class Main extends Component {
 
   render() {
     const { classes, projectList, addProject, deleteProject, updateFilter } = this.props;
+
     return (
       <Grid className={classes.container} container spacing={2}>
         <Grid item xs={12} sm={3}>
@@ -33,6 +34,7 @@ class Main extends Component {
         </Grid>
         <Grid item xs={12} sm={9}>
         <ProjectList
+          secret={this.props.match.params.secret}
           projectList={projectList}
           deleteProject={deleteProject}
         />
