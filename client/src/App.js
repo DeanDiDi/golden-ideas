@@ -10,6 +10,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <NavBar />
+        <Route path="/" component={Main} />
         <Route path="/:secret" component={Main} />
       </Router>
     </Provider>

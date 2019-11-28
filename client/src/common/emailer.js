@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const sendEmail = params => {
   const message = {
-    from: params.from || 'automated@goldenideas.com',
+    from: params.from || 'goldean.ideas@mail.utoronto.ca',
     subject: params.subject || 'Link to your project',
     to: params.to,
     text: params.text,
