@@ -18,12 +18,8 @@ router.post('/send', (req, res) => {
     });
   }
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.utoronto.ca',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: config.get('emailAuth'), // configure your authentication info inside 'config/default.json'
-  });
+  // configure your transport options inside 'config/default.json'
+  const transporter = nodemailer.createTransport(config.get('transportOptions'));
 
   // verify connection configuration
   transporter.verify((error) => {
@@ -40,10 +36,7 @@ router.post('/send', (req, res) => {
       res.json({ err });
     }
 
-    res.json({
-      success: true,
-      response: info.response,
-    });
+    res.json(info.response);
   });
 });
 

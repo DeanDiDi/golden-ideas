@@ -9,7 +9,7 @@ export const sendEmail = params => {
   };
   axios.post('/api/email/send', { message })
   .then((response) => {
-    console.log('please go to this url to check email:', response.data.url);
+    console.log(response);
   })
   .catch((error) => {
     console.log('error occured when sending email', error);

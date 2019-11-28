@@ -166,6 +166,7 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.defaultProps = {
+  privileged: false,
   views: 0,
   projectName: 'default_project_name',
   teamSize: 1,
@@ -181,6 +182,7 @@ ProjectCard.defaultProps = {
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  privileged: PropTypes.bool.isRequired,
   projectName: PropTypes.string,
   teamSize: PropTypes.number,
   startDate: PropTypes.string,
