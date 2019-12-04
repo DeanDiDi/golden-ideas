@@ -27,7 +27,8 @@
     "config": "^3.2.4",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.10"
+    "mongoose": "^5.7.10",
+    "nodemailer": "^6.3.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

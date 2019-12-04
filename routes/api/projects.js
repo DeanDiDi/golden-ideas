@@ -28,6 +28,7 @@ router.post('/', (req, res) => {
     email,
     github,
     description,
+    secret,
   } = req.body;
 
   if (!name) {
@@ -50,6 +51,7 @@ router.post('/', (req, res) => {
         email,
         github,
         description,
+        secret,
       });
 
       newProject.save()

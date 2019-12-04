@@ -1,4 +1,13 @@
 {
   "mongoURI": "mongodb://127.0.0.1:27017/goldenIdeas",
-  "jwtSecret": "golden_ideas_secret"
+  "jwtSecret": "golden_ideas_secret",
+  "transportOptions": {
+    "host": "smtp.utoronto.ca",
+    "port": 587,
+    "secure": false,
+    "auth": {
+      "user": "username",
+      "pass": "password"
+    }
+  }
 }

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
@@ -54,38 +52,31 @@ class ProjectCard extends Component {
   };
 
   render() {
-    const { classes, deleteProject } = this.props;
+    const { classes, deleteProject, privileged } = this.props;
     const { projectName, teamSize, startDate, endDate, projectCategory,
       projectTechnology, projectEmail, projectGithub, description } = this.state;
 
     return (
       <div className={classes.root}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} style={privileged?{backgroundColor: 'yellow'}:{}}>
           <Grid container direction="column" spacing={2}>
             <Grid item xs container spacing={2}>
               <Grid item xs={10} container spacing={2}>
-                <Grid item xs={12} sm container spacing={2}>
-                  <Grid item xs={2}>
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      SZ
-                    </Avatar>
+                <Grid item xs container direction="column">
+                  <Grid item xs>
+                    <Typography variant="body1" gutterBottom>
+                      {projectName}
+                    </Typography>
                   </Grid>
-                  <Grid item xs={10} container direction="column">
-                    <Grid item xs>
-                      <Typography variant="body1" gutterBottom>
-                        {projectName}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography variant="body2" gutterBottom>
-                        {projectCategory}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs>
-                      <Typography variant="body2" gutterBottom>
-                        {`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
-                      </Typography>
-                    </Grid>
+                  <Grid item xs>
+                    <Typography variant="body2" gutterBottom>
+                      {projectCategory}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs>
+                    <Typography variant="body2" gutterBottom>
+                      {`${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
+                    </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sm>
@@ -120,10 +111,14 @@ class ProjectCard extends Component {
               </Grid>
             </Grid>
             <Grid item xs container spacing={2}>
-              <Grid item xs={10}>
-                <IconButton aria-label="delete" onClick={this.showDeleteModal}>
-                  <DeleteIcon />
-                </IconButton>
+              <Grid item xs>
+                {
+                  privileged ? (
+                    <IconButton aria-label="delete" onClick={this.showDeleteModal}>
+                      <DeleteIcon />
+                    </IconButton>
+                  ) : null
+                }
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
@@ -142,11 +137,6 @@ class ProjectCard extends Component {
                   ) : null
                 }
               </Grid>
-              <Grid item xs={2}>
-                <Button className={classes.moreButton} size="small">
-                  More
-                </Button>
-              </Grid>
             </Grid>
           </Grid>
         </Paper>
@@ -162,6 +152,7 @@ class ProjectCard extends Component {
 }
 
 ProjectCard.defaultProps = {
+  privileged: false,
   views: 0,
   projectName: 'default_project_name',
   teamSize: 1,
@@ -177,6 +168,7 @@ ProjectCard.defaultProps = {
 ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  privileged: PropTypes.bool.isRequired,
   projectName: PropTypes.string,
   teamSize: PropTypes.number,
   startDate: PropTypes.string,

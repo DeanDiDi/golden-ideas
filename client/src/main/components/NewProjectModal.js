@@ -54,7 +54,6 @@ class NewProjectModal extends Component {
     const { addProject } = this.props;
     const { projectName, teamSize, startDate, endDate, projectCategory,
       projectTechnology, projectEmail, projectGithub, projectDesc } = this.state;
-    console.log(this.state);
     if (projectName === null) {console.log('Please enter project name.'); return;}
     if (teamSize === null) {console.log('Please enter team size.'); return;}
     if (startDate > endDate) {console.log('End date must larger than start date.'); return;}

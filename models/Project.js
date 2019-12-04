@@ -70,6 +70,11 @@ const projectSchema = new Schema({
     trim: true,
     maxlength: 300,
   },
+  secret: {
+    type: String,
+    match: /^[a-f0-9]{64}$/,
+    unique: true,
+  },
 });
 
 const Project = mongoose.model('Project', projectSchema);

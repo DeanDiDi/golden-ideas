@@ -17,6 +17,7 @@ class ProjectList extends Component {
               <ProjetCard
                 key={project._id}
                 id={project._id}
+                privileged={this.props.secret===project.secret}
                 projectName={project.name}
                 teamSize={project.size}
                 startDate={project.startDate}
