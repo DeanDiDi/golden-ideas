@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import React, { Component, forwardRef } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
@@ -45,7 +46,7 @@ const styles = {
   },
 };
 
-class Project extends Component {
+class ProjectTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -104,7 +105,7 @@ class Project extends Component {
     return (
       <div className={classes.root}>
         <MaterialTable
-          title="Projects"
+          title="Manage Projects"
           columns={tableColumns}
           data={tableData}
           icons={tableIcons}
@@ -124,6 +125,8 @@ class Project extends Component {
   }
 }
 
-Project.propTypes = { };
+ProjectTable.propTypes = {
+  authToken: PropTypes.string.isRequired,
+};
 
-export default withStyles(styles)(Project);
+export default withStyles(styles)(ProjectTable);

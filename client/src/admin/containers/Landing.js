@@ -7,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from './Login';
-import Project from './Project';
+import Dashboard from './Dashboard';
 import PrivateRoute from '../components/PrivateRoute';
 
 class Admin extends React.Component {
@@ -58,7 +58,7 @@ class Admin extends React.Component {
             exact path="/admin/project"
             isAuthenticated={isAuthenticated}
           >
-            <Project
+            <Dashboard
               authToken={authToken}
             />
           </PrivateRoute>
@@ -70,6 +70,5 @@ class Admin extends React.Component {
     );
   }
 }
-
 
 export default Admin;
