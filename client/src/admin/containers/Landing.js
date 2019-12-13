@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -19,8 +20,18 @@ class Admin extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  autheticate() {
-    this.setState({ isAuthenticated: true });
+  autheticate(username, password) {
+    return new Promise((resolve, reject) => {
+      axios.post('/api/admin/auth', { username, password })
+      .then((response) => {
+        this.setState({ isAuthenticated: true });
+        resolve(true);
+      })
+      .catch((error) => {
+        console.log('error when authenticating admin user\n', error.response);
+        resolve(false);
+      });
+    });
   }
 
   logout() {

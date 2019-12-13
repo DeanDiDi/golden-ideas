@@ -38,7 +38,7 @@ function App() {
             render={routeProps => <Admin {...routeProps} />}
           />
           <Route path="*">
-            <Redirect to={"/admin/project"}/>
+            <Redirect to={"/project"}/>
           </Route>
         </Switch>
       </Router>

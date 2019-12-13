@@ -12,6 +12,8 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
+}, {
+  collection: 'admin', // Specify collection name
 });
 
 const Admin = mongoose.model('Admin', adminSchema);

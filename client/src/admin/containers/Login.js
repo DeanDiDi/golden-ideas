@@ -43,12 +43,14 @@ class Login extends Component {
     event.preventDefault();
     const { username, password } = this.state;
     const { autheticate } = this.props;
-    if (username === 'admin' && password === 'password') {
-      autheticate();
-      this.props.history.push('/admin/project');
-    } else {
-      this.setState({ password: null });
-    }
+    autheticate(username, password)
+    .then((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.props.history.push('/admin/project');
+      } else {
+        this.setState({ password: null });
+      }
+    });
   }
 
   render() {
