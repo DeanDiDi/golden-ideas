@@ -71,10 +71,21 @@ class Project extends Component {
   }
 
   onDeleteProject(event, rowData) {
-    axios.delete(`/api/projects/${rowData._id}`)
+    const { authToken } = this.props;
+    // Headers with authorization token
+    const config = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+    // If token, add to headers
+    if (authToken) {
+      config.headers['x-auth-token'] = authToken;
+    }
+    axios.delete(`/api/admin/projects/${rowData._id}`, config)
     .then((response) => {
-      const succeed = response.data.success;
-      if (succeed) {
+      const success = response.data.success;
+      if (success) {
         console.log(`successfully deleted project '${rowData.name}'`);
         axios.get('/api/projects')
         .then((response) => {

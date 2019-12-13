@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 // @route   GET api/auth/user
 // @desc    Get current user data
 // @access  Private
-router.get('/user', auth.userAuth, (req, res) => {
+router.get('/user', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
     .then((user) => res.json(user));

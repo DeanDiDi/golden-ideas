@@ -15,6 +15,7 @@ class Admin extends React.Component {
     super(props);
     this.state = {
       isAuthenticated: false,
+      token: null,
     };
     this.autheticate = this.autheticate.bind(this);
     this.logout = this.logout.bind(this);
@@ -24,7 +25,10 @@ class Admin extends React.Component {
     return new Promise((resolve, reject) => {
       axios.post('/api/admin/auth', { username, password })
       .then((response) => {
-        this.setState({ isAuthenticated: true });
+        this.setState({
+          isAuthenticated: true,
+          authToken: response.data.token,
+        });
         resolve(true);
       })
       .catch((error) => {
@@ -39,7 +43,7 @@ class Admin extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuthenticated, authToken } = this.state;
 
     return (
       <Router>
@@ -54,7 +58,9 @@ class Admin extends React.Component {
             exact path="/admin/project"
             isAuthenticated={isAuthenticated}
           >
-            <Project />
+            <Project
+              authToken={authToken}
+            />
           </PrivateRoute>
           <Route path="*">
             <Redirect to={"/admin/login"}/>
