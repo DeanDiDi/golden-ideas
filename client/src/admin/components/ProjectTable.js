@@ -76,13 +76,10 @@ class ProjectTable extends Component {
     // Headers with authorization token
     const config = {
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'x-auth-token': authToken,
       }
     };
-    // If token, add to headers
-    if (authToken) {
-      config.headers['x-auth-token'] = authToken;
-    }
     axios.delete(`/api/admin/projects/${rowData._id}`, config)
     .then((response) => {
       const success = response.data.success;

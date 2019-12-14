@@ -15,9 +15,14 @@ class Admin extends React.Component {
     super(props);
     this.state = {
       isAuthenticated: false,
-      token: null,
+      authToken: null,
+      user: {
+        id: null,
+        username: null,
+      },
     };
     this.autheticate = this.autheticate.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -28,11 +33,36 @@ class Admin extends React.Component {
         this.setState({
           isAuthenticated: true,
           authToken: response.data.token,
+          user: response.data.user,
         });
         resolve(true);
       })
       .catch((error) => {
         console.log('error when authenticating admin user\n', error.response);
+        resolve(false);
+      });
+    });
+  }
+
+  resetPassword(password, newPassword) {
+    const { user, authToken } = this.state;
+    const body = { userId: user.id, password, newPassword };
+    const headers = {
+      'Content-type': 'application/json',
+      'x-auth-token': authToken,
+    };
+    return new Promise((resolve, reject) => {
+      axios.post('/api/admin/users/change-password', body, { headers })
+      .then((response) => {
+        this.setState({
+          isAuthenticated: true,
+          authToken: response.data.token,
+          user: response.data.user,
+        });
+        resolve(true);
+      })
+      .catch((error) => {
+        console.log('error when changing password\n', error.response);
         resolve(false);
       });
     });
@@ -60,6 +90,7 @@ class Admin extends React.Component {
           >
             <Dashboard
               authToken={authToken}
+              resetPassword={this.resetPassword}
             />
           </PrivateRoute>
           <Route path="*">

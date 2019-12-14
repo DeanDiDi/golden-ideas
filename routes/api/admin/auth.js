@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const Admin = require('../../../models/Admin');
-// const auth = require('../../../middleware/auth');
 
 const router = express.Router();
 
@@ -45,16 +44,5 @@ router.post('/', (req, res) => {
         });
     });
 });
-
-/*
-// @route   GET api/auth/user
-// @desc    Get current user data
-// @access  Private
-router.get('/user', auth.adminAuth, (req, res) => {
-  Admin.findById(req.admin.id)
-    .select('-password')
-    .then((user) => res.json(user));
-});
-*/
 
 module.exports = router;

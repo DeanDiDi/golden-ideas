@@ -19,6 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import BuildIcon from '@material-ui/icons/Build';
 import LockIcon from '@material-ui/icons/Lock';
 import ProjectTable from '../components/ProjectTable';
+import PasswordReset from '../components/PasswordReset';
 
 const drawerWidth = 240;
 
@@ -88,12 +89,26 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       isDrawerOpen: false,
+      currentTab: 'project',
     };
+    this.getCurrentTab = this.getCurrentTab.bind(this);
+  }
+
+  getCurrentTab(tabName) {
+    const { authToken, resetPassword } = this.props;
+    switch (tabName) {
+      case 'password':
+        return <PasswordReset authToken={authToken} resetPassword={resetPassword} />;
+      case 'project':
+        return <ProjectTable authToken={authToken} />
+      default:
+        return <ProjectTable authToken={authToken} />;
+    }
   }
 
   render() {
-    const { classes, theme, authToken } = this.props;
-    const { isDrawerOpen } = this.state;
+    const { classes, theme } = this.props;
+    const { isDrawerOpen, currentTab } = this.state;
 
     return (
       <div className={classes.root}>
@@ -141,21 +156,29 @@ class Dashboard extends Component {
           </div>
           <Divider />
           <List>
-            <ListItem button key='Manage Projects'>
+            <ListItem
+              button
+              key='Manage Projects'
+              onClick={() => this.setState({ currentTab: 'project' })}
+            >
               <ListItemIcon><BuildIcon /></ListItemIcon>
               <ListItemText primary='Manage Projects' />
             </ListItem>
-            <ListItem button key='Reset Password'>
-              <ListItemIcon><LockIcon /></ListItemIcon>
+            <ListItem
+              button
+              key='Reset Password'
+              onClick={() => this.setState({ currentTab: 'password' })}
+            >
+              <ListItemIcon>
+                <LockIcon />
+              </ListItemIcon>
               <ListItemText primary='Reset Password' />
             </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <ProjectTable
-            authToken={authToken}
-          />
+          {this.getCurrentTab(currentTab)}
         </main>
       </div>
     );
@@ -166,6 +189,7 @@ Dashboard.defaultProps = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   authToken: PropTypes.string.isRequired,
+  resetPassword: PropTypes.func.isRequired,
 };
 
 // In order to access theme inside react class, we use withTheme() fucntion call
