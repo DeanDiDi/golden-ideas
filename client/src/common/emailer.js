@@ -12,6 +12,6 @@ export const sendEmail = params => {
     console.log(response);
   })
   .catch((error) => {
-    console.log('error occured when sending email', error);
+    console.log('error when sending email\n', error.response);
   });
 };

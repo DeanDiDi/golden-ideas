@@ -48,7 +48,7 @@ export const addProject = data => dispatch => {
     });
   })
   .catch((error) => {
-    console.log('error', error.response);
+    console.log('error when adding new project\n', error.response);
   });
 };
 

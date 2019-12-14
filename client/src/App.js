@@ -1,17 +1,46 @@
 import React from 'react';
+import Main from './main';
 import NavBar from './common/components/NavBar'
-import Main from './main/Main';
+import { Admin } from './admin';
 import { Provider } from 'react-redux';
 import store from './store';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
-        <NavBar />
-        <Route exact path="/" component={Main} />
-        <Route exact path="/:secret" component={Main} />
+        <Switch>
+          <Route
+            exact path="/project"
+            render={routeProps => {
+              return (
+                <div>
+                  <NavBar />
+                  <Main {...routeProps} />
+                </div>
+              );
+            }}
+          />
+          <Route
+            exact path="/project/:secret"
+            render={routeProps => {
+              return (
+                <div>
+                  <NavBar />
+                  <Main {...routeProps} />
+                </div>
+              );
+            }}
+          />
+          <Route
+            path="/admin"
+            render={routeProps => <Admin {...routeProps} />}
+          />
+          <Route path="*">
+            <Redirect to={"/project"}/>
+          </Route>
+        </Switch>
       </Router>
     </Provider>
   );
