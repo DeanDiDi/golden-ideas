@@ -46,7 +46,7 @@ class Login extends Component {
     autheticate(username, password)
     .then((isAuthenticated) => {
       if (isAuthenticated) {
-        this.props.history.push('/admin/project');
+        this.props.history.push('/admin/dashboard');
       } else {
         this.setState({ password: null });
       }

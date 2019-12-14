@@ -85,7 +85,7 @@ class Admin extends React.Component {
             />
           </Route>
           <PrivateRoute
-            exact path="/admin/project"
+            exact path="/admin/dashboard"
             isAuthenticated={isAuthenticated}
           >
             <Dashboard
